@@ -1,18 +1,14 @@
+
 package jp.te4a.spring.boot.myapp5;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class MyBootApp5ApplicationTests {
+@SpringBootApplication
+public class MyBootApp5Application {
 
-	@Test
-	void contextLoads() {
-		HelloController helloController = new HelloController();
-		String expect  ="index";
-		String actual = helloController.index();
-		assertEquals(expect, actual);
-
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MyBootApp5Application.class, args);
+    }
 
 }
