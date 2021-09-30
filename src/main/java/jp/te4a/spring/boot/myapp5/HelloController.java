@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HelloController {
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("msg", "this is setting message.");
+        
         return "index";
     }
 
