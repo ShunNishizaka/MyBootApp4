@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 
-public ControllerTest5  {
+public class ApplicationTest5 {
 
 	@Autowired
     MockMvc mockMvc;  
@@ -45,7 +45,7 @@ public ControllerTest5  {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/templates");
         viewResolver.setSuffix(".html");
-      mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
 	
@@ -53,12 +53,10 @@ public ControllerTest5  {
 	@Test
     public void indexに遷移しているか () throws Exception {
 
-        MvcResult result = mockMvc.perform(  get("/")  )
+        MvcResult result = mockMvc.perform(get("/") )
 
-            .andExpect(  status().is2xxSuccessful()  )
-
-            .andExpect(  view().name("index")  )
-
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(view().name("index"))
             .andReturn();
 	}   
 
@@ -66,25 +64,25 @@ public ControllerTest5  {
     public void post_form_1 () throws Exception {
 
         MvcResult result = mockMvc.perform(  post("/post").param("text1", "aaa") )
-            .andExpect(  status().is2xxSuccessful()  )
-			.andExpect(  view().name("index")  )
+            .andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("index"))
 			.andReturn();
 			
 		ModelAndView m =  result.getModelAndView();
 		assertEquals("index", m.getViewName());
-		assertEquals("you write 'aaa'!!!", m.getModel().get("msg"));
+		assertEquals("you wrote aaa!!", m.getModel().get("msg"));
 	}   	
 	
 	@Test
     public void post_form_2 () throws Exception {
 
-        MvcResult result = mockMvc.perform(  post("/post").param("text1", "") )
-            .andExpect(  status().is2xxSuccessful()  )
-			.andExpect(  view().name("index")  )
+        MvcResult result = mockMvc.perform(post("/post").param("text1",""))
+            .andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("index"))
 			.andReturn();
 			
 		ModelAndView m =  result.getModelAndView();
 		assertEquals("index", m.getViewName());
-		assertEquals("you write ''!!!", m.getModel().get("msg"));
+		assertEquals("you write ''!!!", m.getModel().get("msg"));//正解は<you wrote !!>
     }   	
 }
