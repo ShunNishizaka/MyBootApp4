@@ -70,7 +70,7 @@ public class ApplicationTest5 {
 			
 		ModelAndView m =  result.getModelAndView();
 		assertEquals("index", m.getViewName());
-		assertEquals("you wrote aaa!!", m.getModel().get("msg"));
+		assertEquals("you wrote 'aaa'!!!", m.getModel().get("msg"));//<you wrote aaa!!>
 	}   	
 	
 	@Test
@@ -83,6 +83,46 @@ public class ApplicationTest5 {
 			
 		ModelAndView m =  result.getModelAndView();
 		assertEquals("index", m.getViewName());
-		assertEquals("you write ''!!!", m.getModel().get("msg"));//正解は<you wrote !!>
+		assertEquals("you write ''!!!", m.getModel().get("msg"));//<you wrote !!>
     }   	
+
+    @Test
+    public void post_form_3 () throws Exception {
+
+        MvcResult result = mockMvc.perform(post("/post").param("text1","bbb"))
+            .andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("index"))
+			.andReturn();
+			
+		ModelAndView m =  result.getModelAndView();
+		assertEquals("index", m.getViewName());
+		assertEquals("you wrote bbb!!", m.getModel().get("msg"));
+    } 
+    
+    @Test
+    public void post_form_4 () throws Exception {
+
+        MvcResult result = mockMvc.perform(post("/post").param("text1","404"))
+            .andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("index"))
+			.andReturn();
+			
+		ModelAndView m =  result.getModelAndView();
+		assertEquals("index", m.getViewName());
+		assertEquals("you write 404!!", m.getModel().get("msg"));
+    } 
+
+    @Test
+    public void post_form_5 () throws Exception {
+
+        MvcResult result = mockMvc.perform(post("/post").param("text1","553"))
+            .andExpect(status().is2xxSuccessful())
+			.andExpect(view().name("index"))
+			.andReturn();
+			
+		ModelAndView m =  result.getModelAndView();
+		assertEquals("index", m.getViewName());
+		assertEquals("you wrote '553'!!", m.getModel().get("msg"));
+    } 
+
 }
