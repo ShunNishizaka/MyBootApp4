@@ -1,3 +1,4 @@
+
 package jp.te4a.spring.boot.myapp5;
 
 import org.springframework.stereotype.Controller;
@@ -8,24 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class HelloController {
-
-	
-	@RequestMapping("/")
+    @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("msg", "this is  a setting message");
+        model.addAttribute("msg", "this is setting message.");
         return "index";
     }
 
-	@RequestMapping(value="/post", method=RequestMethod.POST)
-	public ModelAndView postForm(@RequestParam("text1") String text1) {
-	    ModelAndView mv = new ModelAndView("index");
-	    mv.addObject("msg", "you write '" + text1 + "'!!!");
-	    return mv;
-
-
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    public ModelAndView postForm(@RequestParam("text1") String text1) {
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("msg", "you wrote " + text1 + "!!");
+        return mv;
     }
-    
 }
